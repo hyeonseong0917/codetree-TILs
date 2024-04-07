@@ -21,7 +21,7 @@ int main() {
         if(v[i]%b==0){
             cnt+=v[i]/b;
         }else{
-            cnt+=(v[i]+b/b);
+            cnt+=(v[i]+b)/b;
         }
     }
     cout<<cnt;
