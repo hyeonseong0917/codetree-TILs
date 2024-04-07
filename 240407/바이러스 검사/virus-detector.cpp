@@ -1,20 +1,21 @@
 #include <iostream>
 #include <vector>
 using namespace std;
+#define ll long long
 int main() {
     // 여기에 코드를 작성해주세요.
-    int n;
+    ll n;
     cin>>n;
-    vector<int> v;
-    for(int i=0;i<n;++i){
-        int a=0;
+    vector<ll> v;
+    for(ll i=0;i<n;++i){
+        ll a=0;
         cin>>a;
         v.push_back(a);
     }
-    int a,b;
+    ll a,b;
     cin>>a>>b;
-    int cnt=0;
-    for(int i=0;i<n;++i){
+    ll cnt=0;
+    for(ll i=0;i<n;++i){
         ++cnt;
         v[i]-=a;
         if(v[i]<=0) continue;
