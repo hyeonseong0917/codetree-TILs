@@ -7,6 +7,7 @@ const int MAX=200+1;
 int board[MAX][MAX];
 int dy[4]={-1,0,1,0};
 int dx[4]={0,1,0,-1};
+
 bool isRange(int y, int x){
     return (y>=0 && x>=0 && y<N && x<M);
 }
@@ -47,17 +48,18 @@ void dfs(int y, int x){
     
 }
 void solve(){
+    for(int k=0;k<N;++k){
+        for(int p=0;p<M;++p){
+            visited[k][p]=0;
+        }
+    }
     for(int i=0;i<N;++i){
         for(int j=0;j<M;++j){
-            for(int k=0;k<N;++k){
-                for(int p=0;p<M;++p){
-                    visited[k][p]=0;
-                }
-            }
             v.clear();
             visited[i][j]=1;
             v.push_back({i,j});
             dfs(i,j);
+            visited[i][j]=0;
         }
     }
     cout<<ans;
