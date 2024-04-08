@@ -26,9 +26,9 @@ void dfs(int y, int x){
     if(v.size()==4){
         int sum=0;
         for(int i=0;i<v.size();++i){
-            int y=v[i].first;
-            int x=v[i].second;
-            sum+=board[y][x];
+            int cy=v[i].first;
+            int cx=v[i].second;
+            sum+=board[cy][cx];
         }
         ans=max(ans,sum);
         return;
