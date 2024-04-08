@@ -47,7 +47,23 @@ void dfs(int y, int x){
     }
     
 }
+vector<pair<int,int>> pos[4];
 void solve(){
+    pos[0].push_back({1,0});
+    pos[0].push_back({2,0});
+    pos[0].push_back({1,1});
+
+    pos[1].push_back({-1,1});
+    pos[1].push_back({0,1});
+    pos[1].push_back({1,1});
+
+    pos[2].push_back({-1,1});
+    pos[2].push_back({0,1});
+    pos[2].push_back({0,2});
+
+    pos[3].push_back({0,1});
+    pos[3].push_back({0,2});
+    pos[3].push_back({1,1});
     for(int k=0;k<N;++k){
         for(int p=0;p<M;++p){
             visited[k][p]=0;
@@ -60,6 +76,24 @@ void solve(){
             v.push_back({i,j});
             dfs(i,j);
             visited[i][j]=0;
+        }
+    }
+    for(int i=0;i<N;++i){
+        for(int j=0;j<M;++j){
+            for(int k=0;k<4;++k){
+                // k번째 모형을 넣을 수 있는지?
+                int sum=board[i][j];
+                for(int p=0;p<3;++p){
+                    int ny=i+pos[k][p].first;
+                    int nx=j+pos[k][p].second;
+                    if(!isRange(ny,nx)){
+                        sum=-1;
+                        break;
+                    }
+                    sum+=board[ny][nx];
+                }
+                ans=max(sum,ans);
+            }
         }
     }
     cout<<ans;
