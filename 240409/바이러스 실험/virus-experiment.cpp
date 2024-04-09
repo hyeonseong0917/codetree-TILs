@@ -37,41 +37,53 @@ void Input(){
 }
 void solve(){
     vector<pair<int,int>> tmp;
+    vector<pair<int,int>> die_virus;
+    vector<pair<int,pair<int,int>>> vt;
     while(K--){
+        vt.clear();
         for(int i=0;i<N;++i){
             for(int j=0;j<N;++j){
                 if(!v[{i,j}].empty()){
                     int vs=v[{i,j}].size();
+                    die_virus.clear();
                     for(int k=0;k<vs;++k){
                         int cur_age=v[{i,j}][k].first;
                         if(cur_age<=board[i][j]){
                             board[i][j]-=cur_age;
                             ++v[{i,j}][k].first;
+                            die_virus.push_back(v[{i,j}][k]);
                         }else{
                             v[{i,j}][k].second=0;
+                            vt.push_back({cur_age,{i,j}});
                         }
                     }
+                    v[{i,j}]=die_virus;
                 }
             }
         }
         // 2
-        
-        for(int i=0;i<N;++i){
-            for(int j=0;j<N;++j){
-                if(!v[{i,j}].empty()){
-                    int vs=v[{i,j}].size();
-                    tmp.clear();
-                    for(int k=0;k<vs;++k){
-                        if(v[{i,j}][k].second==0){
-                            board[i][j]+=(v[{i,j}][k].first/2);
-                        }else{
-                            tmp.push_back(v[{i,j}][k]);
-                        }
-                    }
-                    v[{i,j}]=tmp;
-                }
-            }
+        for(int i=0;i<vt.size();++i){
+            int cur_age=vt[i].first;
+            int y=vt[i].second.first;
+            int x=vt[i].second.second;
+            board[y][x]+=cur_age/2;
         }
+        // for(int i=0;i<N;++i){
+        //     for(int j=0;j<N;++j){
+        //         if(!v[{i,j}].empty()){
+        //             int vs=v[{i,j}].size();
+        //             tmp.clear();
+        //             for(int k=0;k<vs;++k){
+        //                 if(v[{i,j}][k].second==0){
+        //                     board[i][j]+=(v[{i,j}][k].first/2);
+        //                 }else{
+        //                     tmp.push_back(v[{i,j}][k]);
+        //                 }
+        //             }
+        //             v[{i,j}]=tmp;
+        //         }
+        //     }
+        // }
         // 3
         for(int i=0;i<N;++i){
             for(int j=0;j<N;++j){
