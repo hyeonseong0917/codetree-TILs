@@ -36,6 +36,7 @@ void Input(){
     }
 }
 void solve(){
+    vector<pair<int,int>> tmp;
     while(K--){
         for(int i=0;i<N;++i){
             for(int j=0;j<N;++j){
@@ -54,11 +55,11 @@ void solve(){
             }
         }
         // 2
+        
         for(int i=0;i<N;++i){
             for(int j=0;j<N;++j){
                 if(!v[{i,j}].empty()){
                     int vs=v[{i,j}].size();
-                    vector<pair<int,int>> tmp;
                     tmp.clear();
                     for(int k=0;k<vs;++k){
                         if(v[{i,j}][k].second==0){
@@ -100,17 +101,6 @@ void solve(){
         for(int i=0;i<N;++i){
             for(int j=0;j<N;++j){
                 board[i][j]+=add_board[i][j];
-            }
-        }
-        for(int i=0;i<N;++i){
-            for(int j=0;j<N;++j){
-                if(!v[{i,j}].empty()){
-                    int vs=v[{i,j}].size();
-                    // cout<<i<<"he"<<j<<endl;
-                    // for(int k=0;k<vs;++k){
-                    //     cout<<v[{i,j}][k].first<<" "<<v[{i,j}][k].second;
-                    // }cout<<endl;
-                }
             }
         }
     }
