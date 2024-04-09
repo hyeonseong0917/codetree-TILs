@@ -8,7 +8,7 @@ int N,M,K;
 const int MAX=10+1;
 int board[MAX][MAX];
 int add_board[MAX][MAX];
-map<pair<int,int>,vector<pair<int,int>>> v;
+map<pair<int,int>,vector<int>> v;
 int dy[8]={-1,-1,-1,0,0,1,1,1};
 int dx[8]={-1,0,1,-1,1,-1,0,1};
 bool isRange(int y, int x){
@@ -31,12 +31,12 @@ void Input(){
         --a;
         --b;
         // a,b에 c의 나이를 가지는 바이러스 존재
-        v[{a,b}].push_back({c,1});
+        v[{a,b}].push_back(c);
     }
 }
 void solve(){
     vector<pair<int,int>> tmp;
-    vector<pair<int,int>> die_virus;
+    vector<int> die_virus;
     vector<pair<int,pair<int,int>>> vt;
     vector<pair<int,int>> fifth;
     while(K--){
@@ -48,16 +48,15 @@ void solve(){
                     int vs=v[{i,j}].size();
                     die_virus.clear();
                     for(int k=0;k<vs;++k){
-                        int cur_age=v[{i,j}][k].first;
+                        int cur_age=v[{i,j}][k];
                         if(cur_age<=board[i][j]){
                             board[i][j]-=cur_age;
-                            ++v[{i,j}][k].first;
+                            ++v[{i,j}][k];
                             // if(v[{i,j}][k].first%5==0){
                             //     fifth.push_back({i,j});
                             // }
                             die_virus.push_back(v[{i,j}][k]);
                         }else{
-                            v[{i,j}][k].second=0;
                             vt.push_back({cur_age,{i,j}});
                         }
                     }
@@ -86,22 +85,24 @@ void solve(){
                 if(!v[{i,j}].empty()){
                     int vs=v[{i,j}].size();
                     for(int k=0;k<vs;++k){
-                        if(v[{i,j}][k].first%5==0){
+                        if(v[{i,j}][k]%5==0){
                             for(int p=0;p<8;++p){
                                 int ny=i+dy[p];
                                 int nx=j+dx[p];
                                 if(!isRange(ny,nx)) continue;
-                                v[{ny,nx}].push_back({1,1});
+                                v[{ny,nx}].push_back(1);
                             }
+                            
                         }
                     }
+                    
                 }
             }
         }
         for(int i=0;i<N;++i){
             for(int j=0;j<N;++j){
                 if(!v[{i,j}].empty()){
-                    sort(v[{i,j}].begin(),v[{i,j}].end(),comp);
+                    sort(v[{i,j}].begin(),v[{i,j}].end());
                 }
             }
         }
