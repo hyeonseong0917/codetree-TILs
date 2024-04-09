@@ -32,7 +32,6 @@ void Input(){
         --b;
         // a,b에 c의 나이를 가지는 바이러스 존재
         v[{a,b}].push_back({c,1});
-        sort(v[{a,b}].begin(),v[{a,b}].end(),comp);
     }
 }
 void solve(){
