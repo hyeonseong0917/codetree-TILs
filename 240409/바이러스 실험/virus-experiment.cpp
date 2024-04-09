@@ -39,8 +39,10 @@ void solve(){
     vector<pair<int,int>> tmp;
     vector<pair<int,int>> die_virus;
     vector<pair<int,pair<int,int>>> vt;
+    vector<pair<int,int>> fifth;
     while(K--){
         vt.clear();
+        fifth.clear();
         for(int i=0;i<N;++i){
             for(int j=0;j<N;++j){
                 if(!v[{i,j}].empty()){
@@ -51,6 +53,9 @@ void solve(){
                         if(cur_age<=board[i][j]){
                             board[i][j]-=cur_age;
                             ++v[{i,j}][k].first;
+                            if(v[{i,j}][k].first%5==0){
+                                fifth.push_back({i,j});
+                            }
                             die_virus.push_back(v[{i,j}][k]);
                         }else{
                             v[{i,j}][k].second=0;
@@ -68,40 +73,32 @@ void solve(){
             int x=vt[i].second.second;
             board[y][x]+=cur_age/2;
         }
+        for(int i=0;i<fifth.size();++i){
+            for(int j=0;j<8;++j){
+                int ny=fifth[i].first+dy[j];
+                int nx=fifth[i].second+dx[j];
+                if(!isRange(ny,nx)) continue;
+                v[{ny,nx}].push_back({1,1});
+            }
+        }
+        // 3
         // for(int i=0;i<N;++i){
         //     for(int j=0;j<N;++j){
         //         if(!v[{i,j}].empty()){
         //             int vs=v[{i,j}].size();
-        //             tmp.clear();
         //             for(int k=0;k<vs;++k){
-        //                 if(v[{i,j}][k].second==0){
-        //                     board[i][j]+=(v[{i,j}][k].first/2);
-        //                 }else{
-        //                     tmp.push_back(v[{i,j}][k]);
+        //                 if(v[{i,j}][k].first%5==0){
+        //                     for(int p=0;p<8;++p){
+        //                         int ny=i+dy[p];
+        //                         int nx=j+dx[p];
+        //                         if(!isRange(ny,nx)) continue;
+        //                         v[{ny,nx}].push_back({1,1});
+        //                     }
         //                 }
         //             }
-        //             v[{i,j}]=tmp;
         //         }
         //     }
         // }
-        // 3
-        for(int i=0;i<N;++i){
-            for(int j=0;j<N;++j){
-                if(!v[{i,j}].empty()){
-                    int vs=v[{i,j}].size();
-                    for(int k=0;k<vs;++k){
-                        if(v[{i,j}][k].first%5==0){
-                            for(int p=0;p<8;++p){
-                                int ny=i+dy[p];
-                                int nx=j+dx[p];
-                                if(!isRange(ny,nx)) continue;
-                                v[{ny,nx}].push_back({1,1});
-                            }
-                        }
-                    }
-                }
-            }
-        }
         for(int i=0;i<N;++i){
             for(int j=0;j<N;++j){
                 if(!v[{i,j}].empty()){
