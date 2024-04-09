@@ -8,13 +8,13 @@ bool flag=0;
 int board_cnt=1;
 
 void Input(){
-    cin>>N>>H>>M;
-    for(int i=0;i<M;++i){
+    cin>>N>>M>>H;
+    for(int i=0;i<H;++i){
         for(int j=0;j<N;++j){
             board[i][j]=0;
         }
     }
-    for(int i=0;i<N;++i){
+    for(int i=0;i<M;++i){
         int a,b;
         cin>>a>>b;
         --a;
@@ -42,7 +42,7 @@ bool simul(){
         int x=i;
         // visited[y][x]=1;
         while(1){
-            if(y==M){
+            if(y==H){
                 break;
             }
             if(board[y][x]==0){
@@ -86,7 +86,7 @@ void dfs(int y, int x,int init_cnt, int cnt, int cur_num){
         }
         return;
     }
-    if(y==M){
+    if(y==H){
         return;
     }
     // y,x에 사다리 설치 x
@@ -112,14 +112,14 @@ void solve(){
     int cnt=0;
     int tmp_board[300+1][10+1];
     while(cnt<=3){
-        for(int i=0;i<M;++i){
+        for(int i=0;i<H;++i){
             for(int j=0;j<N;++j){
                 tmp_board[i][j]=board[i][j];
             }
         }
         dfs(0,0,cnt,cnt,board_cnt);
         // cout<<cnt<<endl;
-        for(int i=0;i<M;++i){
+        for(int i=0;i<H;++i){
             for(int j=0;j<N;++j){
                 board[i][j]=tmp_board[i][j];
             }
