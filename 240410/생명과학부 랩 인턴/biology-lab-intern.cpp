@@ -70,9 +70,9 @@ void solve(){
                     }
                     if(dir==1 || dir==2){
                         if(dir==1){
-                            need_step=N+N-1-y;
+                            need_step=N-1+N-1-y;
                         }else{
-                            need_step=M+M-1-x;
+                            need_step=M-1+M-1-x;
                         }
                     }
                     if(step>=need_step){
