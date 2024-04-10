@@ -52,6 +52,14 @@ int main() {
     bool flag=0;
     while(t<=1000){
         for(int i=1;i<=K;++i){
+            for(int j=1;j<=K;++j){
+                if(v[j].size()>=4)
+                flag=1;
+                break;
+            }
+            if(flag){
+                break;
+            }
             //i번째 말 이동
             int y=v[i][0].first.first;
             int x=v[i][0].first.second;
@@ -88,6 +96,7 @@ int main() {
                 v[j].clear();
                 v[j]=tmp;
             }
+            
             // 2-1.이동하려는 곳에 말이 없다면
             if(!m[ny][nx]){
                 if(board[ny][nx]==0){
@@ -124,6 +133,14 @@ int main() {
                         }
                     }
                     m[ny][nx]=tmp[0].second.second;
+                    for(int j=1;j<=K;++j){
+                        if(v[j].size()>=4)
+                        flag=1;
+                        break;
+                    }
+                    if(flag){
+                        break;
+                    }
                 }
             }else{
                 // 2-2. 이동하려는 곳에 말이 있다면
@@ -142,6 +159,14 @@ int main() {
                         for(int p=0;p<v[i].size();++p){
                             v[cur_num].push_back(v[i][p]);
                         }
+                    }
+                    for(int j=1;j<=K;++j){
+                        if(v[j].size()>=4)
+                        flag=1;
+                        break;
+                    }
+                    if(flag){
+                        break;
                     }
                 }else{
                     // 빨칸
@@ -166,6 +191,14 @@ int main() {
                             v[cur_num].push_back(tmp[k]);
                         }
                     }
+                    for(int j=1;j<=K;++j){
+                        if(v[j].size()>=4)
+                        flag=1;
+                        break;
+                    }
+                    if(flag){
+                        break;
+                    }
                     int last_num=tmp[0].second.second;
                     int bottom_num=m[ny][nx];
                     int vs=v[bottom_num].size();
@@ -174,6 +207,14 @@ int main() {
                         for(int p=0;p<v[last_num].size();++p){
                             v[cur_num].push_back(v[last_num][p]);
                         }
+                    }
+                    for(int j=1;j<=K;++j){
+                        if(v[j].size()>=4)
+                        flag=1;
+                        break;
+                    }
+                    if(flag){
+                        break;
                     }
                 }
             }
