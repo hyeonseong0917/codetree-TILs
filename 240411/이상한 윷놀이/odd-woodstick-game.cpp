@@ -90,7 +90,6 @@ int main() {
             }
             // 2-1.이동하려는 곳에 말이 없다면
             if(!m[ny][nx]){
-                
                 if(board[ny][nx]==0){
                     // 흰칸
                     m[ny][nx]=i;
@@ -198,7 +197,12 @@ int main() {
         // }
         ++t;
     }
-    ans=t;
-    cout<<ans;
+    if(t>1000){
+        cout<<-1;
+    }else{
+        cout<<t;
+    }
+    
+    
     return 0;
 }
