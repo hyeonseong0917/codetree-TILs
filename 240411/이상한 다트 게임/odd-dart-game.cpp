@@ -113,6 +113,7 @@ void solve(){
                 mean_num=sum/cnt;
                 for(int j=1;j<=N;++j){
                     for(int p=0;p<M;++p){
+                        if(v[j][p]==0) continue;
                         if(v[j][p]>mean_num){
                             --v[j][p];
                         }else if(v[j][p]<mean_num){
