@@ -30,16 +30,21 @@ bool isRange(int y, int x){
 }
 void dfs(int y, int x, int cur_num){
     // cout<<y<<" "<<x<<endl;
-    for(int i=0;i<4;++i){
-        int ny=y+dy[i];
-        int nx=x+dx[i];
-        if(!isRange(ny,nx)) continue;
-        if(v[ny][nx]!=cur_num) continue;
-        if(visited[ny][nx]) continue;
-        visited[ny][nx]=1;
-        pos.push_back({ny,nx});
-        dfs(ny,nx,cur_num);
+    for(int j=0;j<pos.size();++j){
+        int cy=pos[j].first;
+        int cx=pos[j].second;
+        for(int i=0;i<4;++i){
+            int ny=cy+dy[i];
+            int nx=cx+dx[i];
+            if(!isRange(ny,nx)) continue;
+            if(v[ny][nx]!=cur_num) continue;
+            if(visited[ny][nx]) continue;
+            visited[ny][nx]=1;
+            pos.push_back({ny,nx});
+            dfs(ny,nx,cur_num);
+        }
     }
+    
 }
 void solve(){
     for(int i=0;i<Q;++i){
@@ -70,6 +75,12 @@ void solve(){
                 }
             }
         }
+        // for(int j=1;j<=N;++j){
+        //     cout<<j<<"번째"<<endl;
+        //     for(int p=0;p<M;++p){
+        //         cout<<v[j][p]<<" ";
+        //     }cout<<endl;
+        // }
         //
         for(int j=1;j<=N;++j){
             for(int p=0;p<M;++p){
