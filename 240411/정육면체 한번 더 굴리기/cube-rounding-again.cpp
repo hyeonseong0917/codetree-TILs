@@ -4,7 +4,7 @@
 using namespace std;
 int N,M;
 int dy[4]={-1,0,1,0};
-int dx[4]={0,1,0,0};
+int dx[4]={0,1,0,-1};
 const int MAX=20+1;
 int board[MAX][MAX];
 bool visited[MAX][MAX];
@@ -87,8 +87,10 @@ void solve(){
         dice_info.second.first=ny;
         dice_info.second.second=nx;
         if(bottom_num>board[ny][nx]){
+            // 시계방향 turn
             dice_info.first=(dice_info.first+1)%4;
         }else if(bottom_num<board[ny][nx]){
+            // 반시계방향 turn
             dice_info.first=(dice_info.first+3)%4;
         }
         for(int j=0;j<N;++j){
@@ -99,8 +101,8 @@ void solve(){
         cnt=1;
         visited[ny][nx]=1;
         dfs(ny,nx,board[ny][nx]);
-        // cout<<cnt<<" "<<ny<<" "<<nx<<endl;
         ans+=board[ny][nx]*cnt;
+        // cout<<cnt<<endl;
     }
     cout<<ans;
 }
