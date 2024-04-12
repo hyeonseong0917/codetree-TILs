@@ -17,6 +17,7 @@ vector<pair<int,pair<int,int>>> m;
 int smell[MAX][MAX];
 map<pair<int,int>,vector<int>> egg;
 int board[MAX][MAX];
+int tmp_board[MAX][MAX];
 void Input(){
     N=4;
     cin>>M>>T;
@@ -114,10 +115,23 @@ void solve(){
                     if(!isRange(ny,nx)) continue;
                     if(!isRange(nny,nnx)) continue;
                     if(!isRange(nnny,nnnx)) continue;
+                    for(int p=0;p<4;++p){
+                        for(int q=0;q<4;++q){
+                            tmp_board[p][q]=board[p][q];
+                        }
+                    }
                     int cur_cnt=0;
                     cur_cnt+=board[ny][nx];
+                    board[ny][nx]=0;
                     cur_cnt+=board[nny][nnx];
+                    board[nny][nnx]=0;
                     cur_cnt+=board[nnny][nnnx];
+                    board[nnny][nnnx]=0;
+                    for(int p=0;p<4;++p){
+                        for(int q=0;q<4;++q){
+                            board[p][q]=tmp_board[p][q];
+                        }
+                    }
                     // for(int p=0;p<m.size();++p){
                     //     int my=m[p].second.first;
                     //     int mx=m[p].second.second;
@@ -151,17 +165,20 @@ void solve(){
         for(int i=0;i<3;++i){
             y+=py[move_dir[i]];
             x+=px[move_dir[i]];
-            for(int j=0;j<m.size();++j){
-                if(m[j].second.first==y && m[j].second.second==x){
-                    del_idx.push_back(j);
-                    smell[y][x]=1;
-                }
-            }
             if(board[y][x]){
                 smell[y][x]=1;
             }
             board[y][x]=0;
-            
+            // for(int j=0;j<m.size();++j){
+            //     if(m[j].second.first==y && m[j].second.second==x){
+            //         del_idx.push_back(j);
+            //         smell[y][x]=1;
+            //     }
+            // }
+            // if(board[y][x]){
+            //     smell[y][x]=1;
+            // }
+            // board[y][x]=0;
         }
         pack_pos.first=y;
         pack_pos.second=x;
@@ -202,6 +219,7 @@ void solve(){
                     for(int k=0;k<egg[{i,j}].size();++k){
                         int cur_dir=egg[{i,j}][k];
                         m.push_back({cur_dir,{i,j}});
+                        ++board[i][j];
                     }
                     egg[{i,j}].clear();
                 }
