@@ -54,6 +54,7 @@ void solve(){
             // cout<<y<<" "<<x<<endl;
             egg[{y,x}].push_back(dir);
         }
+        
         // 몬스터 이동
         for(int i=0;i<m.size();++i){
             int y=m[i].second.first;
@@ -85,6 +86,7 @@ void solve(){
             //     cout<<"pos "<<ny<<" "<<nx<<" "<<new_dir<<endl;
             // }
         }
+        
         // smell 갱신
         for(int i=0;i<N;++i){
             for(int j=0;j<N;++j){
@@ -95,7 +97,7 @@ void solve(){
         }
         // 팩맨 이동
         vector<int> move_dir;
-        int max_cnt=0;
+        int max_cnt=-1;
         int y=pack_pos.first;
         int x=pack_pos.second;
         vector<pair<int,int>> tmp_pos;
@@ -132,6 +134,7 @@ void solve(){
                             board[p][q]=tmp_board[p][q];
                         }
                     }
+                    // cout<<m.size()<<" "<<cur_cnt<<endl;
                     // for(int p=0;p<m.size();++p){
                     //     int my=m[p].second.first;
                     //     int mx=m[p].second.second;
@@ -161,24 +164,17 @@ void solve(){
         // if(T==0){
         //     cout<<"max"<<max_cnt<<endl;
         // }
-        vector<int> del_idx;
+        // cout<<move_dir[0]<<" "<<move_dir[1]<<endl;
+        // break;
+        
         for(int i=0;i<3;++i){
             y+=py[move_dir[i]];
             x+=px[move_dir[i]];
+            
             if(board[y][x]){
                 smell[y][x]=1;
             }
             board[y][x]=0;
-            // for(int j=0;j<m.size();++j){
-            //     if(m[j].second.first==y && m[j].second.second==x){
-            //         del_idx.push_back(j);
-            //         smell[y][x]=1;
-            //     }
-            // }
-            // if(board[y][x]){
-            //     smell[y][x]=1;
-            // }
-            // board[y][x]=0;
         }
         pack_pos.first=y;
         pack_pos.second=x;
@@ -189,16 +185,6 @@ void solve(){
             if(board[my][mx]){
                tmp.push_back(m[i]);
             }
-            // bool flag=0;
-            // for(int j=0;j<del_idx.size();++j){
-            //     if(i==del_idx[j]){
-            //         flag=1;
-            //         break;
-            //     }
-            // }
-            // if(!flag){
-            //     tmp.push_back(m[i]);
-            // }
         }
         m.clear();
         m=tmp;
@@ -225,6 +211,7 @@ void solve(){
                 }
             }
         }
+        
         // for(int i=0;i<m.size();++i){
         //     cout<<m[i].first<<" "<<m[i].second.first<<" "<<m[i].second.second<<endl;
         // }cout<<endl;
