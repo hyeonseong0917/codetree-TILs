@@ -94,7 +94,7 @@ void solve(){
             }
         }
         // 2. 제초제 뿌리기
-        int max_sum=-1;
+        int max_sum=0;
         int max_y, max_x;
         for(int i=0;i<N;++i){
             for(int j=0;j<N;++j){
@@ -166,6 +166,11 @@ void solve(){
                 }
             }
         }
+        // for(int i=0;i<N;++i){
+        //     for(int j=0;j<N;++j){
+        //         cout<<board[i][j]<<" ";
+        //     }cout<<endl;
+        // }cout<<endl;
         ans+=max_sum;
         // y,x에 살충제 설치
         drug[max_y][max_x]=0;
@@ -230,6 +235,11 @@ void solve(){
                 break;
             }
         }
+        // for(int i=0;i<N;++i){
+        //     for(int j=0;j<N;++j){
+        //         cout<<board[i][j]<<" ";
+        //     }cout<<endl;
+        // }cout<<endl;
     }
     cout<<ans;
 }
