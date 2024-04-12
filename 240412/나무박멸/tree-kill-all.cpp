@@ -106,7 +106,9 @@ void solve(){
                 cur_sum+=board[i][j];
                 int ny=y-1;
                 int nx=x-1;
-                while(isRange(ny,nx)){
+                int nk=K;
+                while(isRange(ny,nx) && nk){
+                    --nk;
                     if(board[ny][nx]>0){
                         cur_sum+=board[ny][nx];
                         --ny;
@@ -118,7 +120,9 @@ void solve(){
                 // 오른쪽 대각선에 뿌려보기
                 ny=y-1;
                 nx=x+1;
-                while(isRange(ny,nx)){
+                nk=K;
+                while(isRange(ny,nx) && nk){
+                    --nk;
                     if(board[ny][nx]>0){
                         cur_sum+=board[ny][nx];
                         --ny;
@@ -130,7 +134,9 @@ void solve(){
                 // 왼쪽 아래 대각선에
                 ny=y+1;
                 nx=x-1;
-                while(isRange(ny,nx)){
+                nk=K;
+                while(isRange(ny,nx) && nk){
+                    --nk;
                     if(board[ny][nx]>0){
                         cur_sum+=board[ny][nx];
                         ++ny;
@@ -142,7 +148,9 @@ void solve(){
                 // 오른쪽 아래 대각선에
                 ny=y+1;
                 nx=x+1;
-                while(isRange(ny,nx)){
+                nk=K;
+                while(isRange(ny,nx) && nk){
+                    --nk;
                     if(board[ny][nx]>0){
                         cur_sum+=board[ny][nx];
                         ++ny;
@@ -165,7 +173,9 @@ void solve(){
         // 왼쪽 위 대각선
         int ny=max_y-1;
         int nx=max_x-1;
-        while(isRange(ny,nx)){
+        int nk=K;
+        while(isRange(ny,nx) && nk){
+            --nk;
             if(board[ny][nx]>0){
                 drug[ny][nx]=0;
                 board[ny][nx]=0;
@@ -178,7 +188,9 @@ void solve(){
         // 오른쪽 위 대각선
         ny=max_y-1;
         nx=max_x+1;
-        while(isRange(ny,nx)){
+        nk=K;
+        while(isRange(ny,nx) && nk){
+            --nk;
             if(board[ny][nx]>0){
                 drug[ny][nx]=0;
                 board[ny][nx]=0;
@@ -191,7 +203,9 @@ void solve(){
         // 왼쪽 아래 대각선
         ny=max_y+1;
         nx=max_x-1;
-        while(isRange(ny,nx)){
+        nk=K;
+        while(isRange(ny,nx) && nk){
+            --nk;
             if(board[ny][nx]>0){
                 drug[ny][nx]=0;
                 board[ny][nx]=0;
@@ -204,7 +218,9 @@ void solve(){
         // 오른쪽 아래 대각선
         ny=max_y+1;
         nx=max_x+1;
-        while(isRange(ny,nx)){
+        nk=K;
+        while(isRange(ny,nx) && nk){
+            --nk;
             if(board[ny][nx]>0){
                 drug[ny][nx]=0;
                 board[ny][nx]=0;
