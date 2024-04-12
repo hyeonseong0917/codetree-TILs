@@ -94,7 +94,7 @@ void solve(){
             }
         }
         // 2. 제초제 뿌리기
-        int max_sum=0;
+        int max_sum=-1;
         int max_y, max_x;
         for(int i=0;i<N;++i){
             for(int j=0;j<N;++j){
@@ -166,6 +166,9 @@ void solve(){
                 }
             }
         }
+        if(max_sum==-1){
+            break;
+        }
         // for(int i=0;i<N;++i){
         //     for(int j=0;j<N;++j){
         //         cout<<board[i][j]<<" ";
@@ -181,8 +184,8 @@ void solve(){
         int nk=K;
         while(isRange(ny,nx) && nk){
             --nk;
+            drug[ny][nx]=0;
             if(board[ny][nx]>0){
-                drug[ny][nx]=0;
                 board[ny][nx]=0;
                 --ny;
                 --nx;
@@ -196,8 +199,9 @@ void solve(){
         nk=K;
         while(isRange(ny,nx) && nk){
             --nk;
+            drug[ny][nx]=0;
             if(board[ny][nx]>0){
-                drug[ny][nx]=0;
+                
                 board[ny][nx]=0;
                 --ny;
                 ++nx;
@@ -211,8 +215,9 @@ void solve(){
         nk=K;
         while(isRange(ny,nx) && nk){
             --nk;
+            drug[ny][nx]=0;
             if(board[ny][nx]>0){
-                drug[ny][nx]=0;
+                
                 board[ny][nx]=0;
                 ++ny;
                 --nx;
@@ -226,8 +231,8 @@ void solve(){
         nk=K;
         while(isRange(ny,nx) && nk){
             --nk;
+            drug[ny][nx]=0;
             if(board[ny][nx]>0){
-                drug[ny][nx]=0;
                 board[ny][nx]=0;
                 ++ny;
                 ++nx;
