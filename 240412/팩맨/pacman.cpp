@@ -16,7 +16,7 @@ bool isRange(int y, int x){
 vector<pair<int,pair<int,int>>> m;
 int smell[MAX][MAX];
 map<pair<int,int>,vector<int>> egg;
-
+int board[MAX][MAX];
 void Input(){
     N=4;
     cin>>M>>T;
@@ -26,6 +26,12 @@ void Input(){
     --b;
     pack_pos.first=a;
     pack_pos.second=b;
+    for(int j=0;j<N;++j){
+        for(int k=0;k<N;++k){
+            smell[j][k]=0;
+            board[j][k]=0;
+        }
+    }
     for(int i=0;i<M;++i){
         int r,c,d;
         cin>>r>>c>>d;
@@ -33,12 +39,9 @@ void Input(){
         --c;
         --d;
         m.push_back({d,{r,c}});
+        ++board[r][c];
     }
-    for(int j=0;j<N;++j){
-        for(int k=0;k<N;++k){
-            smell[j][k]=0;
-        }
-    }
+    
 }
 void solve(){
     while(T--){
@@ -71,6 +74,8 @@ void solve(){
             }
             if(!flag) continue;
             //ny,nx로 이동할 것임
+            --board[y][x];
+            ++board[ny][nx];
             m[i].second.first=ny;
             m[i].second.second=nx;
             m[i].first=new_dir;
@@ -110,17 +115,20 @@ void solve(){
                     if(!isRange(nny,nnx)) continue;
                     if(!isRange(nnny,nnnx)) continue;
                     int cur_cnt=0;
-                    for(int p=0;p<m.size();++p){
-                        int my=m[p].second.first;
-                        int mx=m[p].second.second;
-                        if(my==ny && mx==nx){
-                            ++cur_cnt;
-                        }else if(my==nny && mx==nnx){
-                            ++cur_cnt;
-                        }else if(my==nnny && mx==nnnx){
-                            ++cur_cnt;
-                        }
-                    }
+                    cur_cnt+=board[ny][nx];
+                    cur_cnt+=board[nny][nnx];
+                    cur_cnt+=board[nnny][nnnx];
+                    // for(int p=0;p<m.size();++p){
+                    //     int my=m[p].second.first;
+                    //     int mx=m[p].second.second;
+                    //     if(my==ny && mx==nx){
+                    //         ++cur_cnt;
+                    //     }else if(my==nny && mx==nnx){
+                    //         ++cur_cnt;
+                    //     }else if(my==nnny && mx==nnnx){
+                    //         ++cur_cnt;
+                    //     }
+                    // }
                     if(cur_cnt>max_cnt){
                         max_cnt=cur_cnt;
                         move_dir.clear();
@@ -149,21 +157,31 @@ void solve(){
                     smell[y][x]=1;
                 }
             }
+            if(board[y][x]){
+                smell[y][x]=1;
+            }
+            board[y][x]=0;
+            
         }
         pack_pos.first=y;
         pack_pos.second=x;
         vector<pair<int,pair<int,int>>> tmp;
         for(int i=0;i<m.size();++i){
-            bool flag=0;
-            for(int j=0;j<del_idx.size();++j){
-                if(i==del_idx[j]){
-                    flag=1;
-                    break;
-                }
+            int my=m[i].second.first;
+            int mx=m[i].second.second;
+            if(board[my][mx]){
+               tmp.push_back(m[i]);
             }
-            if(!flag){
-                tmp.push_back(m[i]);
-            }
+            // bool flag=0;
+            // for(int j=0;j<del_idx.size();++j){
+            //     if(i==del_idx[j]){
+            //         flag=1;
+            //         break;
+            //     }
+            // }
+            // if(!flag){
+            //     tmp.push_back(m[i]);
+            // }
         }
         m.clear();
         m=tmp;
