@@ -56,9 +56,9 @@ vector<vector<int>> turn(vector<vector<int>> v){
 }
 void solve(){
     while(K-- && !player.empty()){
-        // player이동
         int ey=exit_pos.first;
         int ex=exit_pos.second;
+
         for(int i=0;i<player.size();++i){
             int y=player[i].first;
             int x=player[i].second;
@@ -86,6 +86,7 @@ void solve(){
                 --people_num[y][x];
             }
         }
+        
         // 탈출한 player 있는지?
         vector<pair<int,int>> tmp;
         for(int i=0;i<player.size();++i){
@@ -98,15 +99,15 @@ void solve(){
                 tmp.push_back({y,x});
             }
         }
-        // for(int i=0;i<N;++i){
-        //     for(int j=0;j<N;++j){
-        //         cout<<people_num[i][j];
-        //     }cout<<endl;
-        // }
+        
         int min_width=122232421;
         int min_y,min_x;
         player.clear();
         player=tmp;
+        if(player.empty()){
+            // cout<<K;
+            break;
+        }
         int r,c,cnt;
         // 미로 회전
         for(int i=0;i<N;++i){
@@ -136,18 +137,7 @@ void solve(){
                 }
             }
         }
-        // if(K==7){
-        //     cout<<min_width<<" "<<min_y<<" "<<min_x<<endl;    
-        //     break;
-        // }
-        // cout<<min_width<<" "<<min_y<<" "<<min_x<<endl;
-        // return;
-        
         vector<vector<int>> tmp_board, tmp_people;
-        // if(K==5){
-        //     cout<<min_y<<" "<<min_x<<" "<<min_width<<"\n";
-        //     break;
-        // }
         for(int i=min_y;i<=min_y+min_width;++i){
             vector<int> tmp, ptmp;
             for(int j=min_x;j<=min_x+min_width;++j){
@@ -157,7 +147,10 @@ void solve(){
             tmp_board.push_back(tmp);
             tmp_people.push_back(ptmp);
         }
-        
+        // if(K==11){
+        //     cout<<ans<<"\n";
+        //     break;
+        // }
         vector<vector<int>> turned_board=turn(tmp_board);
         vector<vector<int>> turned_people=turn(tmp_people);
         for(int i=min_y;i<=min_y+min_width;++i){
@@ -172,22 +165,24 @@ void solve(){
                 }
             }
         }
-        // if(K==5){
-        //     cout<<ans<<"\n";
-        //     break;
-        // }
-        // 
         vector<pair<int,int>> pre_pos, next_pos;
-        // cout<<min_width<<endl;
         for(int i=min_y;i<=min_y+min_width;++i){
             for(int j=min_x;j<=min_x+min_width;++j){
-                if(people_num[i][j]){
-                    people_num[i][j]=0;
-                    pre_pos.push_back({i,j});
+                if(people_num[i][j]>0){
+                    int pn=people_num[i][j];
+                    for(int k=0;k<pn;++k){
+                        --people_num[i][j];
+                        pre_pos.push_back({i,j});
+                    }
                 }
-                if(turned_people[i-min_y][j-min_x]){
-                    people_num[i][j]+=turned_people[i-min_y][j-min_x];
-                    next_pos.push_back({i,j});
+                if(turned_people[i-min_y][j-min_x]>0){
+                    int tn=turned_people[i-min_y][j-min_x];
+                    for(int k=0;k<tn;++k){
+                        ++people_num[i][j];
+                        next_pos.push_back({i,j});
+                    }
+                    // people_num[i][j]+=turned_people[i-min_y][j-min_x];
+                    // next_pos.push_back({i,j});
                 }
                 // if(K==6){
                 //     cout<<i<<" "<<j<<endl;
@@ -198,12 +193,8 @@ void solve(){
             //     break;
             // }
         }
-        // if(K==5){
+        // if(K==11){
         //     cout<<ans<<"\n";
-        //     break;
-        // }
-        // if(K==6){
-        //     cout<<ans;
         //     break;
         // }
         vector<pair<int,int>> tmp_player;
@@ -226,21 +217,7 @@ void solve(){
         }
         player.clear();
         player=tmp_player;
-        // for(int i=0;i<N;++i){
-        //     for(int j=0;j<N;++j){
-        //         cout<<people_num[i][j];
-        //     }cout<<endl;
-        // }
-        // cout<<endl;
-        // for(int i=0;i<N;++i){
-        //     for(int j=0;j<N;++j){
-        //         cout<<board[i][j];
-        //     }cout<<endl;
-        // }break;
-        // if(K==5){
-        //     cout<<ans<<"\n";
-        //     break;
-        // }
+        
     }
     cout<<ans<<"\n";
     cout<<exit_pos.first+1<<" "<<exit_pos.second+1;
