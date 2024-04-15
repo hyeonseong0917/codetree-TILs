@@ -252,6 +252,11 @@ int main() {
                         }
                     }
                 }
+                for(int k=0;k<5;++k){
+                    for(int p=0;p<5;++p){
+                        board[k][p]=tmp_board[k][p];
+                    }
+                }
             }
         }
         if(max_score==0) continue;
